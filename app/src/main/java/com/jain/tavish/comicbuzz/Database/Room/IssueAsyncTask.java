@@ -10,8 +10,8 @@ public class IssueAsyncTask {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                issueDao.insertId(issueEntity);
                 issueEntity.setId(id);
+                issueDao.insertId(issueEntity);
                 issueDao.updateID(issueEntity);
                 return null;
             }
@@ -28,8 +28,8 @@ public class IssueAsyncTask {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                issueDao.deleteId(issueEntity);
                 issueEntity.setId(id);
+                issueDao.deleteId(issueEntity);
                 issueDao.updateID(issueEntity);
                 return null;
             }

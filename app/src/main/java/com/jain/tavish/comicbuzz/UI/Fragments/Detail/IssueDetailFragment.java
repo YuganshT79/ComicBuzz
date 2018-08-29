@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jain.tavish.comicbuzz.Database.Room.DatabaseCreator;
+import com.jain.tavish.comicbuzz.Database.Room.IssueAsyncTask;
 import com.jain.tavish.comicbuzz.Database.Room.IssueDao;
 import com.jain.tavish.comicbuzz.Database.Room.IssueEntity;
 import com.jain.tavish.comicbuzz.ModelClasses.Details.Issue.Issue;
@@ -66,6 +67,7 @@ public class IssueDetailFragment extends Fragment {
 
         issueDao = DatabaseCreator.getIssueDatabase(container.getContext()).IssueDatabase();
         issueEntity = new IssueEntity();
+    //    issueEntity = issueDao.getFavIssue(id).getValue();
         setAppropriateFabIcon(view);
 
         if (getArguments() != null) {
@@ -101,27 +103,29 @@ public class IssueDetailFragment extends Fragment {
                 int i = 0;
                 do {
                     if (issueEntityList.size() == 0){
-  //                      IssueAsyncTask.writeToDatabase(container.getContext(), issueDao, issueEntityList.get(i), id);
                     //    issueEntityList.get(i).setId(id);
-                        setAppropriateFabIcon(view);
- //                       Log.e("tavish", issueEntity.toString());
-                        issueDao.insertId(issueEntity);
-                        issueEntity.setId(id);
+                        //                       Log.e("tavish", issueEntity.toString());
+                        issueEntity = new IssueEntity();
+                 //       issueEntity.setId(id);
+                        //           issueDao.insertId(issueEntity);
+                        IssueAsyncTask.writeToDatabase(container.getContext(), issueDao, issueEntity, id);
                         Log.e("tavish", "1");
-                    }else if(i == (issueEntityList.size() - 1)){
-           //             IssueAsyncTask.writeToDatabase(container.getContext(), issueDao, issueEntityList.get(i), id);
-                        setAppropriateFabIcon(view);
-                        issueEntityList.get(i).setId(id);
-                        issueDao.insertId(issueEntityList.get(i));
-                        Log.e("tavish", "2");
                     }else if(id == issueEntityList.get(i).getId()){
-                  //      IssueAsyncTask.deleteFromDatabase(container.getContext(), issueDao, issueEntityList.get(i), id);
-                        setAppropriateFabIcon(view);
-                        issueEntityList.get(i).setId(id);
-                        issueDao.deleteId(issueEntityList.get(i));
+                        issueEntity = new IssueEntity();
+                        IssueAsyncTask.deleteFromDatabase(container.getContext(), issueDao, issueEntity, id);
+                      //  issueEntity.setId(id);
+                      //  issueDao.deleteId(issueEntityList.get(i));
                         Log.e("tavish", "3");
+                    }else if(i == (issueEntityList.size() - 1)){
+                        issueEntity = new IssueEntity();
+                        IssueAsyncTask.writeToDatabase(container.getContext(), issueDao, issueEntity, id);
+                        //       issueEntity.setId(id);
+                      //  issueDao.insertId(issueEntityList.get(i));
+                        Log.e("tavish", "2");
                     }
+                    i++;
                 }while (i < issueEntityList.size());
+                setAppropriateFabIcon(view);
             }
         });
 
