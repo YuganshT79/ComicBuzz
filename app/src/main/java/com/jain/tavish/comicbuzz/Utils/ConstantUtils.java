@@ -10,7 +10,7 @@ public class ConstantUtils {
     public static final int NAV_ITEM_SETTINGS = 5;
     public static final int NAV_ITEM_ABOUT_ME = 6;
 
-    public static final String API_KEY = "";
+    public static final String API_KEY = "8b6e516c7aa970d8cd0cd92423c391876bc2d793";
 
     public static final int ENDPOINT_ISSUE = 4000;
     public static final int ENDPOINT_CHARACTER = 4005;

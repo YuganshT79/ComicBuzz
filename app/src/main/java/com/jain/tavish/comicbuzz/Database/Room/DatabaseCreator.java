@@ -12,8 +12,7 @@ public class DatabaseCreator {
         if(issueDatabase == null) {
             synchronized (LOCK) {
                 if (issueDatabase == null) {
-                    issueDatabase = Room.databaseBuilder(context,
-                            IssueDatabase.class, "IssueDB")
+                    issueDatabase = Room.databaseBuilder(context,IssueDatabase.class, "IssueDB")
                             .allowMainThreadQueries()
                             .build();
                 }

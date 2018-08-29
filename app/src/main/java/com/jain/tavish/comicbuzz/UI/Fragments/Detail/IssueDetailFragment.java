@@ -1,7 +1,5 @@
 package com.jain.tavish.comicbuzz.UI.Fragments.Detail;
 
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -67,31 +65,30 @@ public class IssueDetailFragment extends Fragment {
         }
 
         issueDao = DatabaseCreator.getIssueDatabase(container.getContext()).IssueDatabase();
+        issueEntity = new IssueEntity();
         setAppropriateFabIcon(view);
 
         if (getArguments() != null) {
             id = getArguments().getInt(ConstantUtils.BUNDLE_ID);
         }
+
 /*
-        issueDao.getAllFavIssues().observe((LifecycleOwner) container.getContext(), new Observer<List<Integer>>() {
-            @Override
-            public void onChanged(@Nullable List<Integer> ids) {
-                idList = ids;
-                Toast.makeText(getContext(), "" + idList.size(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), "onChanged", Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
-
-        issueDao.getFavIssue(id).observe((LifecycleOwner) container.getContext(), new Observer<IssueEntity>() {
+        issueDao.getFavIssue(id).observe(this, new Observer<IssueEntity>() {
             @Override
             public void onChanged(@Nullable IssueEntity issueEntities) {
                 issueEntityList = issueDao.getAllFavIssues();
-                Toast.makeText(getContext(), "" + issueEntityList.size(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(getContext(), "onChanged", Toast.LENGTH_SHORT).show();
                 issueEntity = issueEntities;
             }
         });
+*/
+
+        issueEntityList = issueDao.getAllFavIssues();
+
+        Toast.makeText(getContext(), "list size " + issueEntityList.size(), Toast.LENGTH_SHORT).show();
+        for (int i = 0; i < issueEntityList.size() ; i++) {
+            Toast.makeText(getContext(), "id " + issueEntityList.get(i).getId(), Toast.LENGTH_SHORT).show();
+        }
 
 
         // ButterKnife.bind(getActivity(), view);
