@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_issue"
+            android:icon="@drawable/ic_issue"
+            android:title="Issues" />
+        <item
+            android:id="@+id/nav_volumes"
+            android:icon="@drawable/ic_volumes"
+            android:title="Volumes" />
+        <item
+            android:id="@+id/nav_characters"
+            android:icon="@drawable/ic_characters"
+            android:title="Characters" />
+        <item
+            android:id="@+id/nav_my_favs"
+            android:icon="@drawable/ic_my_favs"
+            android:title="My Favourites" />
+        <item
+            android:id="@+id/nav_new_releases"
+            android:icon="@drawable/ic_new_releases"
+            android:title="New Releases" />
+    </group>
+
+    <item android:title="More...">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_about_me"
+                android:icon="@drawable/ic_about_me"
+                android:title="About the Developer" />
+        </menu>
+    </item>
+
+</menu>
