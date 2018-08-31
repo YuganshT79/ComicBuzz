@@ -23,17 +23,27 @@
         </activity>
         <activity
             android:name=".UI.Activities.SettingsActivity"
-            android:theme="@style/AppTheme"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".UI.Activities.MainActivity" />
+            android:parentActivityName=".UI.Activities.MainActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".UI.Activities.AboutMeActivity"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".UI.Activities.MainActivity" />
-
-        <activity android:name=".UI.Activities.DetailActivity"
             android:parentActivityName=".UI.Activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".UI.Activities.DetailActivity"
+            android:parentActivityName=".UI.Activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver android:name=".Widget.NewIssuesWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_issues_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

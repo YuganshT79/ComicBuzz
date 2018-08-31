@@ -1,11 +1,13 @@
 package com.jain.tavish.comicbuzz.UI.Fragments.Detail;
 
+import android.app.Activity;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,8 @@ import com.jain.tavish.comicbuzz.Database.Room.DatabaseCreator;
 import com.jain.tavish.comicbuzz.Database.Room.IssueAsyncTask;
 import com.jain.tavish.comicbuzz.Database.Room.IssueDao;
 import com.jain.tavish.comicbuzz.Database.Room.IssueEntity;
+import com.jain.tavish.comicbuzz.Database.ViewModel.ViewModelClass;
+import com.jain.tavish.comicbuzz.Database.ViewModel.ViewModelFactory;
 import com.jain.tavish.comicbuzz.ModelClasses.Details.Issue.Issue;
 import com.jain.tavish.comicbuzz.ModelClasses.Details.Issue.IssueResult;
 import com.jain.tavish.comicbuzz.Networking.ApiInterface;
@@ -27,7 +31,6 @@ import com.jain.tavish.comicbuzz.Utils.DateUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,40 +61,35 @@ public class IssueDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_issue_detail, container, false);
+        final View view = inflater.inflate(R.layout.fragment_issue_detail, container, false);
 
         FloatingActionButton fab = null;
         if (container != null) {
             fab = view.findViewById(R.id.fab_issue_detail);
         }
 
+
         issueDao = DatabaseCreator.getIssueDatabase(container.getContext()).IssueDatabase();
-        issueEntity = new IssueEntity();
-    //    issueEntity = issueDao.getFavIssue(id).getValue();
-        setAppropriateFabIcon(view);
+        //  issueEntity = new IssueEntity();
+        //  setAppropriateFabIcon(view);
 
         if (getArguments() != null) {
             id = getArguments().getInt(ConstantUtils.BUNDLE_ID);
         }
 
-/*
-        issueDao.getFavIssue(id).observe(this, new Observer<IssueEntity>() {
+     //   final ViewModelClass viewModelClass = new ViewModelClass(issueDao, id);
+        final ViewModelClass viewModelClass = ViewModelProviders.of(this ,
+                new ViewModelFactory(((Activity)(container.getContext())).getApplication() ,issueDao
+                        , id)).get(ViewModelClass.class);
+
+        viewModelClass.getIssueEntityLiveData().observe(this, new Observer<IssueEntity>() {
             @Override
-            public void onChanged(@Nullable IssueEntity issueEntities) {
-                issueEntityList = issueDao.getAllFavIssues();
-                Toast.makeText(getContext(), "onChanged", Toast.LENGTH_SHORT).show();
-                issueEntity = issueEntities;
+            public void onChanged(@Nullable IssueEntity issueEntity) {
+                viewModelClass.getIssueEntityLiveData().removeObserver(this);
             }
         });
-*/
 
         issueEntityList = issueDao.getAllFavIssues();
-
-        Toast.makeText(getContext(), "list size " + issueEntityList.size(), Toast.LENGTH_SHORT).show();
-        for (int i = 0; i < issueEntityList.size() ; i++) {
-            Toast.makeText(getContext(), "id " + issueEntityList.get(i).getId(), Toast.LENGTH_SHORT).show();
-        }
-
 
         // ButterKnife.bind(getActivity(), view);
 
@@ -99,29 +97,20 @@ public class IssueDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 issueEntityList = issueDao.getAllFavIssues();
-              //  issueEntity.setId(id);
                 int i = 0;
                 do {
                     if (issueEntityList.size() == 0){
-                    //    issueEntityList.get(i).setId(id);
-                        //                       Log.e("tavish", issueEntity.toString());
                         issueEntity = new IssueEntity();
-                 //       issueEntity.setId(id);
-                        //           issueDao.insertId(issueEntity);
                         IssueAsyncTask.writeToDatabase(container.getContext(), issueDao, issueEntity, id);
-                        Log.e("tavish", "1");
+                        break;
                     }else if(id == issueEntityList.get(i).getId()){
                         issueEntity = new IssueEntity();
                         IssueAsyncTask.deleteFromDatabase(container.getContext(), issueDao, issueEntity, id);
-                      //  issueEntity.setId(id);
-                      //  issueDao.deleteId(issueEntityList.get(i));
-                        Log.e("tavish", "3");
+                        break;
                     }else if(i == (issueEntityList.size() - 1)){
                         issueEntity = new IssueEntity();
                         IssueAsyncTask.writeToDatabase(container.getContext(), issueDao, issueEntity, id);
-                        //       issueEntity.setId(id);
-                      //  issueDao.insertId(issueEntityList.get(i));
-                        Log.e("tavish", "2");
+                        break;
                     }
                     i++;
                 }while (i < issueEntityList.size());
@@ -138,7 +127,9 @@ public class IssueDetailFragment extends Fragment {
             public void onResponse(@NonNull Call<Issue> call, @NonNull Response<Issue> response) {
 
                 if(response.body() != null){
-                    issueResult = response.body().getResults();
+                    if (response.body() != null) {
+                        issueResult = response.body().getResults();
+                    }
 
                     ImageView imageView = container.findViewById(R.id.iv_issue_detail_image_view);
                     TextView issueName = container.findViewById(R.id.tv_issue_detail_issue_name);
@@ -148,7 +139,6 @@ public class IssueDetailFragment extends Fragment {
                     TextView datePublished = container.findViewById(R.id.tv_issue_detail_date_published);
                     TextView description = container.findViewById(R.id.tv_issue_detail_description);
                     ImageView imageViewMainLayout = container.findViewById(R.id.iv_issue_detail_main_layout);
-                 //   RecyclerView recyclerView = container.findViewById(R.id.rv_issue_detail_character_recycler_view);
 
                     Picasso.get()
                             .load(issueResult.getImage().getScreenUrl())
@@ -175,6 +165,8 @@ public class IssueDetailFragment extends Fragment {
                         charactersList.append("\n" + issueResult.getCharacterCredits().get(i).getName() );
                     }
 
+                    setAppropriateFabIcon(view);
+
 
                 }else{
                     Toast.makeText(getContext(), "Error Retrieving Data", Toast.LENGTH_SHORT).show();
@@ -189,41 +181,18 @@ public class IssueDetailFragment extends Fragment {
 
         return view;
     }
-/*
-    public void setAppropriateFabIcon(ViewGroup container){
-
-        FloatingActionButton floatingActionButton = container.findViewById(R.id.fab_issue_detail);
-
-        if(response){
-            floatingActionButton.setImageResource(R.drawable.ic_fav);
-        }else if(!response){
-            floatingActionButton.setImageResource(R.drawable.ic_not_fav);
-        }
-    }*/
-
 
     public void setAppropriateFabIcon(View container){
-
         FloatingActionButton floatingActionButton = container.findViewById(R.id.fab_issue_detail);
 
-        int position = -1;
+        IssueEntity issueEntity;
+        issueEntity = issueDao.getFavIssue(id).getValue();
 
-        for (int i = 0; i < issueDao.getAllFavIssues().size(); i++) {
-            if(Objects.equals(issueEntity.getId(), issueDao.getAllFavIssues().get(i).getId())){
-                position = i;
-                break;
-            }else{
-                position = -1;
-            }
-        }
-
-        if(position > -1){
-            floatingActionButton.setImageResource(R.drawable.ic_fav);
-        }else{
+        if(issueEntity == null){
             floatingActionButton.setImageResource(R.drawable.ic_not_fav);
+        }else {
+            floatingActionButton.setImageResource(R.drawable.ic_fav);
         }
+
     }
-
-
-
 }

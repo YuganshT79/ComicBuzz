@@ -9,6 +9,7 @@
 
     <ImageView
         android:layout_width="match_parent"
+        android:contentDescription="@string/character_detail_main_image"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:id="@+id/iv_character_detail_main_layout"/>
@@ -155,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="#80000000"
-                android:text="Character's Enemies : "
+                android:text="@string/character_s_enemies"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
@@ -169,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="#80000000"
-                android:text="Character's Friends : "
+                android:text="@string/character_s_friends"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
@@ -183,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="#80000000"
-                android:text="Creators : "
+                android:text="@string/creators"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="12dp"

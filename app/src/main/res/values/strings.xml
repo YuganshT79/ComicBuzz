@@ -3,7 +3,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="welcome_screen_image_view_content_desc">Welcome Screen Image View</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -29,7 +28,6 @@
         <item>-1</item>
     </string-array>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="issue_cover_image">Issue Cover Image</string>
     <string name="published_on">Published On : </string>
     <string name="volume">Volume : </string>
@@ -44,5 +42,24 @@
     <string name="real_name">Real Name : </string>
     <string name="count_of_issue_appearances">Count of Issue Appearances : </string>
     <string name="issue_details_fragment_image_view">Issue details fragment image view</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="volume_detail_main_image">Volume Detail Main image</string>
+    <string name="character_detail_main_image">Character detail main image</string>
+    <string name="my_favourites_main_image">my favourites main image</string>
+    <string name="character_s_enemies">Character\'s Enemies :</string>
+    <string name="character_s_friends">Character\'s Friends :</string>
+    <string name="creators">Creators :</string>
+    <string name="favourite_button">Favourite Button</string>
+    <string name="tavish_jain">Tavish Jain</string>
+    <string name="jaintavish_gmail_com">jaintavish@gmail.com</string>
+    <string name="new_issue_releases">New Issue Releases</string>
+    <string name="origin">Origin</string>
+    <string name="issues">Issues</string>
+    <string name="volumes">Volumes</string>
+    <string name="characters">Characters</string>
+    <string name="my_favourites">My Favourites</string>
+    <string name="more">More…</string>
+    <string name="about_the_developer">About the Developer</string>
+    <string name="background_image_detail_activity">Background Image Detail Activity</string>
 
 </resources>

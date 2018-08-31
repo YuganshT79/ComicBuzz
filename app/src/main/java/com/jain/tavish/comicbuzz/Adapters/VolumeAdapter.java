@@ -41,7 +41,7 @@ public class VolumeAdapter extends RecyclerView.Adapter<VolumeAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VolumeAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final VolumeAdapter.ViewHolder holder, final int position) {
 
         Picasso.get()
                 .load(volumesResultList.get(position).getImage().getSmallUrl())
@@ -64,7 +64,7 @@ public class VolumeAdapter extends RecyclerView.Adapter<VolumeAdapter.ViewHolder
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra(ConstantUtils.BUNDLE_ACTIVITY_NAME, ConstantUtils.NAV_ITEM_VOLUMES);
-                intent.putExtra(ConstantUtils.BUNDLE_ID, volumesResultList.get(position).getId());
+                intent.putExtra(ConstantUtils.BUNDLE_ID, volumesResultList.get(holder.getAdapterPosition()).getId());
                 context.startActivity(intent);
             }
         });

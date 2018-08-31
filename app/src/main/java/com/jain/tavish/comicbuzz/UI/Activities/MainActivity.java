@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.jain.tavish.comicbuzz.R;
 import com.jain.tavish.comicbuzz.UI.Fragments.Main.CharacterFragment;
 import com.jain.tavish.comicbuzz.UI.Fragments.Main.IssuesFragment;
+import com.jain.tavish.comicbuzz.UI.Fragments.Main.MyFavouritesFragment;
 import com.jain.tavish.comicbuzz.UI.Fragments.Main.VolumesFragment;
 import com.jain.tavish.comicbuzz.Utils.ConstantUtils;
 
@@ -77,9 +78,13 @@ public class MainActivity extends AppCompatActivity
     public void loadMyFavs(){
         navigationView.getMenu().getItem(ConstantUtils.NAV_ITEM_MY_FAVS).setChecked(true);
         getSupportActionBar().setTitle("My Favorites");
+        MyFavouritesFragment myFavouritesFragment = new MyFavouritesFragment();
+        fragmentManager.beginTransaction()
+                .replace(R.id.activity_main_frame_layout, myFavouritesFragment)
+                .commit();
 
     }
-
+/*
     public void loadNewReleases(){
         navigationView.getMenu().getItem(ConstantUtils.NAV_ITEM_NEW_RELEASES).setChecked(true);
         getSupportActionBar().setTitle("New Releases");
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(intent);
     }
-
+*/
     public void loadAboutMe(){
         Intent intent = new Intent(MainActivity.this, AboutMeActivity.class);
         startActivity(intent);
@@ -110,20 +115,22 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_issue) {
-            loadIssues();
-        }else if (id == R.id.nav_volumes) {
-            loadVolumes();
-        }else if (id == R.id.nav_characters) {
-            loadCharacters();
-        }else if (id == R.id.nav_my_favs) {
-            loadMyFavs();
-        }else if (id == R.id.nav_new_releases) {
-            loadNewReleases();
-        }else if (id == R.id.nav_settings) {
-            loadSettings();
-        }else if (id == R.id.nav_about_me) {
-            loadAboutMe();
+        switch (id) {
+            case R.id.nav_issue:
+                loadIssues();
+                break;
+            case R.id.nav_volumes:
+                loadVolumes();
+                break;
+            case R.id.nav_characters:
+                loadCharacters();
+                break;
+            case R.id.nav_my_favs:
+                loadMyFavs();
+                break;
+            case R.id.nav_about_me:
+                loadAboutMe();
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);

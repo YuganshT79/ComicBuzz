@@ -9,6 +9,7 @@
 
     <ImageView
         android:layout_width="match_parent"
+        android:contentDescription="@string/background_image_detail_activity"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:id="@+id/iv_issue_detail_main_layout"/>
@@ -125,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="#80000000"
-                android:text="Characters"
+                android:text="@string/characters"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="12dp"
@@ -143,7 +144,8 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_fav"
+        android:contentDescription="@string/favourite_button"
+        app:srcCompat="@drawable/ic_not_fav"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/fab_issue_detail"/>

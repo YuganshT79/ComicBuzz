@@ -41,7 +41,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull IssueAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final IssueAdapter.ViewHolder holder, int position) {
 
         Picasso.get()
                 .load(issuesResultList.get(position).getImage().getSmallUrl())
@@ -59,7 +59,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder> 
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra(ConstantUtils.BUNDLE_ACTIVITY_NAME, ConstantUtils.NAV_ITEM_ISSUES);
-                intent.putExtra(ConstantUtils.BUNDLE_ID, issuesResultList.get(position).getId());
+                intent.putExtra(ConstantUtils.BUNDLE_ID, issuesResultList.get(holder.getAdapterPosition()).getId());
                 context.startActivity(intent);
             }
         });

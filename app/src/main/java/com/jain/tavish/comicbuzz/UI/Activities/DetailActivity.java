@@ -40,27 +40,31 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putInt(ConstantUtils.BUNDLE_ID, id);
 
-        if (activityName == ConstantUtils.NAV_ITEM_ISSUES) {
-            IssueDetailFragment issueDetailFragment = new IssueDetailFragment();
-            issueDetailFragment.setArguments(bundle);
+        switch (activityName) {
+            case ConstantUtils.NAV_ITEM_ISSUES:
+                IssueDetailFragment issueDetailFragment = new IssueDetailFragment();
+                issueDetailFragment.setArguments(bundle);
 
-            fragmentManager.beginTransaction()
-                    .replace(R.id.detail_activity_frame_layout, issueDetailFragment)
-                    .commit();
-        }else if(activityName == ConstantUtils.NAV_ITEM_VOLUMES){
-            VolumeDetailFragment volumeDetailFragment = new VolumeDetailFragment();
-            volumeDetailFragment.setArguments(bundle);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.detail_activity_frame_layout, issueDetailFragment)
+                        .commit();
+                break;
+            case ConstantUtils.NAV_ITEM_VOLUMES:
+                VolumeDetailFragment volumeDetailFragment = new VolumeDetailFragment();
+                volumeDetailFragment.setArguments(bundle);
 
-            fragmentManager.beginTransaction()
-                    .replace(R.id.detail_activity_frame_layout, volumeDetailFragment)
-                    .commit();
-        }else if(activityName == ConstantUtils.NAV_ITEM_CHARACTERS){
-            CharacterDetailFragment characterDetailFragment = new CharacterDetailFragment();
-            characterDetailFragment.setArguments(bundle);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.detail_activity_frame_layout, volumeDetailFragment)
+                        .commit();
+                break;
+            case ConstantUtils.NAV_ITEM_CHARACTERS:
+                CharacterDetailFragment characterDetailFragment = new CharacterDetailFragment();
+                characterDetailFragment.setArguments(bundle);
 
-            fragmentManager.beginTransaction()
-                    .replace(R.id.detail_activity_frame_layout, characterDetailFragment)
-                    .commit();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.detail_activity_frame_layout, characterDetailFragment)
+                        .commit();
+                break;
         }
 
     }

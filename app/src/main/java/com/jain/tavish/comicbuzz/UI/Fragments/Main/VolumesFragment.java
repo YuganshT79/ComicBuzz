@@ -58,7 +58,9 @@ public class VolumesFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<Volumes> call, @NonNull Response<Volumes> response) {
                 if (response.body() != null) {
-                    resultList = response.body().getResults();
+                    if (response.body() != null) {
+                        resultList = response.body().getResults();
+                    }
                     VolumeAdapter volumeAdapter = new VolumeAdapter(getContext(), resultList);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new GridLayoutManager(container.getContext() , spanCount));

@@ -58,7 +58,9 @@ public class CharacterFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<Characters> call, @NonNull Response<Characters> response) {
                 if (response.body() != null) {
-                    resultList = response.body().getResults();
+                    if (response.body() != null) {
+                        resultList = response.body().getResults();
+                    }
                     CharacterAdapter characterAdapter = new CharacterAdapter(getContext(), resultList);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new GridLayoutManager(container.getContext() , spanCount));

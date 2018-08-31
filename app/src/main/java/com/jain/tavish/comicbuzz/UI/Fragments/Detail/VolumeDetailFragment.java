@@ -48,7 +48,9 @@ public class VolumeDetailFragment extends Fragment {
 
         // ButterKnife.bind(getActivity(), view);
 
-        id = getArguments().getInt(ConstantUtils.BUNDLE_ID);
+        if (getArguments() != null) {
+            id = getArguments().getInt(ConstantUtils.BUNDLE_ID);
+        }
 
         ApiInterface apiInterface = RetrofitClient.getRetrofitInstance().create(ApiInterface.class);
         volumeCall = apiInterface.getVolumeDetails(Integer.toString(id), ConstantUtils.API_KEY, "json");
@@ -56,9 +58,10 @@ public class VolumeDetailFragment extends Fragment {
         volumeCall.enqueue(new Callback<Volume>() {
             @Override
             public void onResponse(@NonNull Call<Volume> call, @NonNull Response<Volume> response) {
-
                 if(response.body() != null){
-                    volumeResult = response.body().getResults();
+                    if (response.body() != null) {
+                        volumeResult = response.body().getResults();
+                    }
 
                     ImageView imageView = container.findViewById(R.id.iv_volume_detail_image_view);
                     TextView volumeName = container.findViewById(R.id.tv_volume_detail_volume_name);

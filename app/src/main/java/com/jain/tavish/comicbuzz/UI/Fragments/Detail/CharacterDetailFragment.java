@@ -48,7 +48,9 @@ public class CharacterDetailFragment extends Fragment {
 
         // ButterKnife.bind(getActivity(), view);
 
-        id = getArguments().getInt(ConstantUtils.BUNDLE_ID);
+        if (getArguments() != null) {
+            id = getArguments().getInt(ConstantUtils.BUNDLE_ID);
+        }
 
         ApiInterface apiInterface = RetrofitClient.getRetrofitInstance().create(ApiInterface.class);
         characterCall = apiInterface.getCharacterDetails(Integer.toString(id), ConstantUtils.API_KEY, "json");
@@ -58,7 +60,9 @@ public class CharacterDetailFragment extends Fragment {
             public void onResponse(@NonNull Call<Character> call, @NonNull Response<Character> response) {
 
                 if(response.body() != null){
-                    characterResults = response.body().getResults();
+                    if (response.body() != null) {
+                        characterResults = response.body().getResults();
+                    }
 
                     ImageView imageView = container.findViewById(R.id.iv_character_detail_image_view);
                     ImageView characterDetailMainLayout = container.findViewById(R.id.iv_character_detail_main_layout);
@@ -92,12 +96,16 @@ public class CharacterDetailFragment extends Fragment {
                     dateAdded.setText("Date Added : " + characterResults.getDateAdded());
                     description.setText("Description : " + characterResults.getDeck().toString());
 
-                    if(characterResults.getGender() == 1) {
-                        gender.setText("Gender : Male");
-                    }else if(characterResults.getGender() == 2) {
-                        gender.setText("Gender : Female");
-                    }else if(characterResults.getGender() == 0) {
-                        gender.setText("Gender : Other");
+                    switch (characterResults.getGender()) {
+                        case 1:
+                            gender.setText("Gender : Male");
+                            break;
+                        case 2:
+                            gender.setText("Gender : Female");
+                            break;
+                        case 0:
+                            gender.setText("Gender : Other");
+                            break;
                     }
 
                     firstAppeared.setText("First Appeared in : " +

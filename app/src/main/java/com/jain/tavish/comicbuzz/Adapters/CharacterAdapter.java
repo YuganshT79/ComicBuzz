@@ -40,7 +40,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CharacterAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final CharacterAdapter.ViewHolder holder, final int position) {
 
         if(charactersResultList.get(position).getCharactersImage() != null) {
             Picasso.get()
@@ -54,12 +54,16 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         if(charactersResultList.get(position).getPublisher() != null) {
             holder.birth.setText(charactersResultList.get(position).getPublisher().getName());
         }
-        if(charactersResultList.get(position).getGender() == 1) {
-            holder.gender.setText("Male");
-        }else if(charactersResultList.get(position).getGender() == 2){
-            holder.gender.setText("Female");
-        }else{
-            holder.gender.setText("Other");
+        switch (charactersResultList.get(position).getGender()) {
+            case 1:
+                holder.gender.setText("Male");
+                break;
+            case 2:
+                holder.gender.setText("Female");
+                break;
+            default:
+                holder.gender.setText("Other");
+                break;
         }
         holder.realName.setText(charactersResultList.get(position).getRealName());
         holder.countOfAppearances.setText(Integer.toString(charactersResultList.get(position).getCountOfIssueAppearances()) + 1);
@@ -68,12 +72,10 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra(ConstantUtils.BUNDLE_ACTIVITY_NAME, ConstantUtils.NAV_ITEM_CHARACTERS);
-                intent.putExtra(ConstantUtils.BUNDLE_ID, charactersResultList.get(position).getId());
+                intent.putExtra(ConstantUtils.BUNDLE_ID, charactersResultList.get(holder.getAdapterPosition()).getId());
                 context.startActivity(intent);
             }
         });
-
-
 
     }
 

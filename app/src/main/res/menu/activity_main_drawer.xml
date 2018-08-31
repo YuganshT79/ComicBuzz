@@ -7,35 +7,36 @@
         <item
             android:id="@+id/nav_issue"
             android:icon="@drawable/ic_issue"
-            android:title="Issues" />
+            android:title="@string/issues" />
         <item
             android:id="@+id/nav_volumes"
             android:icon="@drawable/ic_volumes"
-            android:title="Volumes" />
+            android:title="@string/volumes" />
         <item
             android:id="@+id/nav_characters"
             android:icon="@drawable/ic_characters"
-            android:title="Characters" />
+            android:title="@string/characters" />
         <item
             android:id="@+id/nav_my_favs"
             android:icon="@drawable/ic_my_favs"
-            android:title="My Favourites" />
+            android:title="@string/my_favourites" />
+        <!--
         <item
             android:id="@+id/nav_new_releases"
             android:icon="@drawable/ic_new_releases"
-            android:title="New Releases" />
+            android:title="New Releases" />-->
     </group>
 
-    <item android:title="More...">
-        <menu>
+    <item android:title="@string/more">
+        <menu><!--
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_settings"
-                android:title="Settings" />
+                android:title="Settings" />-->
             <item
                 android:id="@+id/nav_about_me"
                 android:icon="@drawable/ic_about_me"
-                android:title="About the Developer" />
+                android:title="@string/about_the_developer" />
         </menu>
     </item>
 
