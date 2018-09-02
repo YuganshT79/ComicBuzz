@@ -11,7 +11,6 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,9 +42,18 @@ public class IssuesFragment extends Fragment {
     public List<IssuesResult> resultList;
     @BindView(R.id.shimmer_view_container) ShimmerFrameLayout shimmerFrameLayout;
     @BindView(R.id.recycler_view_main) RecyclerView recyclerView;
-    Parcelable mLayoutManagerSavedState;
+    GridLayoutManager gridLayoutManager;
+    IssueAdapter issueAdapter;
+
+    public Parcelable mLayoutManagerSavedState;
 
     public IssuesFragment() {
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(ConstantUtils.BUNDLE_RECYCLER_VIEW_STATE_INT_KEY, recyclerView.getLayoutManager().onSaveInstanceState());
+        super.onSaveInstanceState(outState);
     }
 
     public void saveDataToSharedPrefs(List<IssuesResult> resultListSharedPref, ViewGroup container){
@@ -80,22 +88,12 @@ public class IssuesFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        int lastFirstVisiblePosition = ((LinearLayoutManager)recyclerView.getLayoutManager())
-                .findFirstCompletelyVisibleItemPosition();
-
-        outState.putInt(ConstantUtils.BUNDLE_RECYCLER_VIEW_STATE_INT_KEY, lastFirstVisiblePosition);
-
-/*
-
-        outState.putParcelable(ConstantUtils.BUNDLE_RECYCLER_VIEW_STATE_INT_KEY,
-                recyclerView.getLayoutManager().onSaveInstanceState());*/
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
+
+        if (savedInstanceState != null){
+            mLayoutManagerSavedState = savedInstanceState.getParcelable(ConstantUtils.BUNDLE_RECYCLER_VIEW_STATE_INT_KEY);
+        }
 
         View view = inflater.inflate(R.layout.fragment_layout_file, container, false);
         ButterKnife.bind(this, view);
@@ -104,13 +102,6 @@ public class IssuesFragment extends Fragment {
         final int spanCount = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
 
         resultList = new ArrayList<>();
-
-        if(savedInstanceState != null){
-                      /*  int lastFirstVisiblePosition = savedInstanceState.getInt(ConstantUtils.BUNDLE_RECYCLER_VIEW_STATE_INT_KEY);
-                        (recyclerView.getLayoutManager()).scrollToPosition(lastFirstVisiblePosition);*/
-
-            mLayoutManagerSavedState = savedInstanceState.getParcelable("recycler_view_position");
-        }
 
         ApiInterface apiInterface = RetrofitClient.getRetrofitInstance().create(ApiInterface.class);
         issuesCall = apiInterface.getIssuesList(ConstantUtils.API_KEY, "json", "date_added:desc");
@@ -123,28 +114,26 @@ public class IssuesFragment extends Fragment {
                         resultList = response.body().getResults();
                     }
 
-                    IssueAdapter issueAdapter = new IssueAdapter(getActivity(), resultList);
-                    recyclerView.setHasFixedSize(true);
+                    issueAdapter = new IssueAdapter(getActivity(), resultList);
                     recyclerView.setAdapter(issueAdapter);
 
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
 
-                    recyclerView.setLayoutManager(new GridLayoutManager(container.getContext() , spanCount));
-/*
+                    gridLayoutManager = new GridLayoutManager(container.getContext() , spanCount);
+
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+
                     if (mLayoutManagerSavedState != null) {
                         recyclerView.getLayoutManager().onRestoreInstanceState(mLayoutManagerSavedState);
                         mLayoutManagerSavedState = null;
-                    }*/
-
-                    if(savedInstanceState != null){
-                        int pos = savedInstanceState.getInt(ConstantUtils.BUNDLE_RECYCLER_VIEW_STATE_INT_KEY);
-                        recyclerView.scrollToPosition(pos);
                     }
 
                     saveDataToSharedPrefs(resultList, container);
                 }else{
+                    shimmerFrameLayout.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "Error Retrieving Data !!!", Toast.LENGTH_SHORT).show();
                 }
             }

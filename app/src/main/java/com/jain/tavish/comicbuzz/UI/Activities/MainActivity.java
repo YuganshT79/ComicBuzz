@@ -29,12 +29,15 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
     @BindView(R.id.nav_view) NavigationView navigationView;
     public FragmentManager fragmentManager;
+    Bundle savedState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        savedState = savedInstanceState;
 
         setSupportActionBar(toolbar);
         fragmentManager = getSupportFragmentManager();
@@ -51,37 +54,45 @@ public class MainActivity extends AppCompatActivity
     public void loadIssues(){
         navigationView.getMenu().getItem(ConstantUtils.NAV_ITEM_ISSUES).setChecked(true);
         getSupportActionBar().setTitle("Issues");
-        IssuesFragment issuesFragment = new IssuesFragment();
-        fragmentManager.beginTransaction()
-                .replace(R.id.activity_main_frame_layout, issuesFragment)
-                .commit();
+        if(savedState == null) {
+            IssuesFragment issuesFragment = new IssuesFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.activity_main_frame_layout, issuesFragment)
+                    .commit();
+        }
     }
 
     public void loadVolumes(){
         navigationView.getMenu().getItem(ConstantUtils.NAV_ITEM_VOLUMES).setChecked(true);
         getSupportActionBar().setTitle("Volumes");
-        VolumesFragment volumesFragment = new VolumesFragment();
-        fragmentManager.beginTransaction()
-                .replace(R.id.activity_main_frame_layout, volumesFragment)
-                .commit();
+        if(savedState == null) {
+            VolumesFragment volumesFragment = new VolumesFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.activity_main_frame_layout, volumesFragment)
+                    .commit();
+        }
     }
 
     public void loadCharacters(){
         navigationView.getMenu().getItem(ConstantUtils.NAV_ITEM_CHARACTERS).setChecked(true);
         getSupportActionBar().setTitle("Characters");
-        CharacterFragment characterFragment = new CharacterFragment();
-        fragmentManager.beginTransaction()
-                .replace(R.id.activity_main_frame_layout, characterFragment)
-                .commit();
+        if(savedState == null) {
+            CharacterFragment characterFragment = new CharacterFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.activity_main_frame_layout, characterFragment)
+                    .commit();
+        }
     }
 
     public void loadMyFavs(){
         navigationView.getMenu().getItem(ConstantUtils.NAV_ITEM_MY_FAVS).setChecked(true);
         getSupportActionBar().setTitle("My Favorites");
-        MyFavouritesFragment myFavouritesFragment = new MyFavouritesFragment();
-        fragmentManager.beginTransaction()
-                .replace(R.id.activity_main_frame_layout, myFavouritesFragment)
-                .commit();
+        if(savedState == null) {
+            MyFavouritesFragment myFavouritesFragment = new MyFavouritesFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.activity_main_frame_layout, myFavouritesFragment)
+                    .commit();
+        }
 
     }
 /*

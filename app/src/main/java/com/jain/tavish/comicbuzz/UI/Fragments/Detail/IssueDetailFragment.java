@@ -153,7 +153,9 @@ public class IssueDetailFragment extends Fragment {
                             .error(R.drawable.error_404)
                             .into(imageView);
 
-                    getActivity().setTitle(issueResult.getName());
+                    if(getActivity() != null) {
+                        getActivity().setTitle(issueResult.getName());
+                    }
 
                     issueName.setText(issueResult.getName());
                     issueNumber.setText("Issue Number : #" + issueResult.getIssueNumber());
@@ -166,7 +168,6 @@ public class IssueDetailFragment extends Fragment {
                     }
 
                     setAppropriateFabIcon(view);
-
 
                 }else{
                     Toast.makeText(getContext(), "Error Retrieving Data", Toast.LENGTH_SHORT).show();
