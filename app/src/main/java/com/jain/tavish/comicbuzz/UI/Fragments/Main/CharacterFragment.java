@@ -69,13 +69,13 @@ public class CharacterFragment extends Fragment {
                     shimmerFrameLayout.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
                 }else{
-                    Toast.makeText(getContext(), "Error Retrieving Data !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_getting_data, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Characters> call, @NonNull Throwable t) {
-                Toast.makeText(getContext(), "failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.failed, Toast.LENGTH_SHORT).show();
             }
         });
 

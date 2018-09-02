@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.jain.tavish.comicbuzz.R;
+
 public class IssueAsyncTask {
 
     public static void writeToDatabase(final Context context, final IssueDao issueDao, final IssueEntity issueEntity, final int id){
@@ -18,7 +20,7 @@ public class IssueAsyncTask {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                Toast.makeText(context, "Added to Favourites !!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.added_to_favs, Toast.LENGTH_SHORT).show();
                 super.onPostExecute(aVoid);
             }
         }.execute();
@@ -36,7 +38,7 @@ public class IssueAsyncTask {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                Toast.makeText(context, "Deleted from Favourites !!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.deleted_from_favs, Toast.LENGTH_SHORT).show();
                 super.onPostExecute(aVoid);
             }
         }.execute();

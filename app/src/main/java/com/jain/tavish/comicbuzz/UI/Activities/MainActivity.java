@@ -95,18 +95,7 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
-/*
-    public void loadNewReleases(){
-        navigationView.getMenu().getItem(ConstantUtils.NAV_ITEM_NEW_RELEASES).setChecked(true);
-        getSupportActionBar().setTitle("New Releases");
 
-    }
-
-    public void loadSettings(){
-        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-        startActivity(intent);
-    }
-*/
     public void loadAboutMe(){
         Intent intent = new Intent(MainActivity.this, AboutMeActivity.class);
         startActivity(intent);

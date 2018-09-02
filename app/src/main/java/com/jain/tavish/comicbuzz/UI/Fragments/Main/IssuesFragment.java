@@ -51,7 +51,7 @@ public class IssuesFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putParcelable(ConstantUtils.BUNDLE_RECYCLER_VIEW_STATE_INT_KEY, recyclerView.getLayoutManager().onSaveInstanceState());
         super.onSaveInstanceState(outState);
     }
@@ -73,7 +73,7 @@ public class IssuesFragment extends Fragment {
         for (int i = 0; i < resultListSharedPref.size(); i++) {
             if (resultListSharedPref.get(i).getName() != null) {
                 temp++;
-                builder.append( temp + ". " + resultListSharedPref.get(i).getName()).append("\n");
+                builder.append(temp).append(". ").append(resultListSharedPref.get(i).getName()).append("\n");
             }
 
             if (temp == 5){
@@ -134,13 +134,13 @@ public class IssuesFragment extends Fragment {
                     saveDataToSharedPrefs(resultList, container);
                 }else{
                     shimmerFrameLayout.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Error Retrieving Data !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_getting_data, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Issues> call, @NonNull Throwable t) {
-                Toast.makeText(getContext(), "failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.failed, Toast.LENGTH_SHORT).show();
             }
         });
 

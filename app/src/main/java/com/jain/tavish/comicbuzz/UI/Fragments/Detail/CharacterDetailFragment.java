@@ -73,9 +73,6 @@ public class CharacterDetailFragment extends Fragment {
                     TextView description = container.findViewById(R.id.tv_character_detail_description);
                     TextView gender = container.findViewById(R.id.tv_character_detail_gender);
                     TextView firstAppeared = container.findViewById(R.id.tv_character_detail_first_appeared_in);
-                    TextView enemy = container.findViewById(R.id.tv_character_detail_character_enemies);
-                    TextView friends = container.findViewById(R.id.tv_character_detail_character_friends);
-                    TextView creators = container.findViewById(R.id.tv_character_detail_character_creators);
 
                     Picasso.get()
                             .load(characterResults.getImage().getSmallUrl())
@@ -98,49 +95,27 @@ public class CharacterDetailFragment extends Fragment {
 
                     switch (characterResults.getGender()) {
                         case 1:
-                            gender.setText("Gender : Male");
+                            gender.setText(R.string.gender_male);
                             break;
                         case 2:
-                            gender.setText("Gender : Female");
+                            gender.setText(R.string.gender_female);
                             break;
                         case 0:
-                            gender.setText("Gender : Other");
+                            gender.setText(R.string.gender_other);
                             break;
                     }
 
                     firstAppeared.setText("First Appeared in : " +
                             characterResults.getFirstAppearedInIssue().getName() + " #" +
                             characterResults.getFirstAppearedInIssue().getIssueNumber());
-/*
-                    if(characterResults.getCharacterEnemies() != null) {
-                        for (int i = 0; i < characterResults.getCharacterEnemies().size(); i++) {
-                            enemy.append("\n" + characterResults.getCharacterEnemies().get(i));
-                            Log.e("tavish", characterResults.getCharacterEnemies().get(i).toString());
-                        }
-                    }
-
-                    if(characterResults.getCharacterFriends() != null) {
-                        for (int i = 0; i < characterResults.getCharacterFriends().size(); i++) {
-                            friends.append("\n" + characterResults.getCharacterFriends().get(i));
-                        }
-                    }
-
-                    if(characterResults.getCreators() != null) {
-                        for (int i = 0; i < characterResults.getCreators().size(); i++) {
-                            creators.append("\n" + characterResults.getCreators().get(i));
-                        }
-                    }
-*/
-
-
                 }else{
-                    Toast.makeText(getContext(), "Error Retrieving Data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_getting_data, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Character> call, @NonNull Throwable t) {
-                Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.failed, Toast.LENGTH_SHORT).show();
             }
         });
 

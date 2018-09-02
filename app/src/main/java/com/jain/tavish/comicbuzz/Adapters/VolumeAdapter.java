@@ -56,7 +56,7 @@ public class VolumeAdapter extends RecyclerView.Adapter<VolumeAdapter.ViewHolder
         if(volumesResultList.get(position).getPublisher() != null) {
             holder.publisher.setText(volumesResultList.get(position).getPublisher().getName());
         }else {
-            holder.publisher.setText("Not Available");
+            holder.publisher.setText(R.string.not_available);
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {

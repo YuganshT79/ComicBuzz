@@ -17,7 +17,6 @@ public class AboutMeActivity extends AppCompatActivity {
 
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
-              //  .setImage(R.drawable.dummy_image)
                 .setDescription("Hey There !!! \n My name is Tavish Jain and I am an undergraduate student at Delhi Technological University pursuing Software Engineering. I am a Budding Software and Android Developer. I also have interest in Machine Learning and Artificial Intelligence")
                 .addGroup("Connect with me")
                 .addEmail("jaintavish@gmail.com")

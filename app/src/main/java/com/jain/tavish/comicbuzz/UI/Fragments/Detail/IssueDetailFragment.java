@@ -70,14 +70,11 @@ public class IssueDetailFragment extends Fragment {
 
 
         issueDao = DatabaseCreator.getIssueDatabase(container.getContext()).IssueDatabase();
-        //  issueEntity = new IssueEntity();
-        //  setAppropriateFabIcon(view);
 
         if (getArguments() != null) {
             id = getArguments().getInt(ConstantUtils.BUNDLE_ID);
         }
 
-     //   final ViewModelClass viewModelClass = new ViewModelClass(issueDao, id);
         final ViewModelClass viewModelClass = ViewModelProviders.of(this ,
                 new ViewModelFactory(((Activity)(container.getContext())).getApplication() ,issueDao
                         , id)).get(ViewModelClass.class);
@@ -170,13 +167,13 @@ public class IssueDetailFragment extends Fragment {
                     setAppropriateFabIcon(view);
 
                 }else{
-                    Toast.makeText(getContext(), "Error Retrieving Data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_getting_data, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Issue> call, @NonNull Throwable t) {
-                Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.failed, Toast.LENGTH_SHORT).show();
             }
         });
 

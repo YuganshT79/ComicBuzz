@@ -71,7 +71,6 @@ public class VolumeDetailFragment extends Fragment {
                     TextView description = container.findViewById(R.id.tv_volume_detail_description);
                     TextView characterList = container.findViewById(R.id.tv_volume_detail_character_list);
                     ImageView volumeDetailMainLayout = container.findViewById(R.id.iv_volume_detail_main_layout);
-                 //   RecyclerView recyclerView = container.findViewById(R.id.rv_volume_detail_character_recycler_view);
 
                     Picasso.get()
                             .load(volumeResult.getImage().getScreenUrl())
@@ -100,17 +99,17 @@ public class VolumeDetailFragment extends Fragment {
                             characterList.append("\n" + volumeResult.getPeople().get(i).getName());
                         }
                     }else{
-                        characterList.append("\n" + "Not Available");
+                        characterList.append("\n" + R.string.not_available);
                     }
 
                 }else{
-                    Toast.makeText(getContext(), "Error Retrieving Data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_getting_data, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Volume> call, @NonNull Throwable t) {
-                Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.failed, Toast.LENGTH_SHORT).show();
             }
         });
 

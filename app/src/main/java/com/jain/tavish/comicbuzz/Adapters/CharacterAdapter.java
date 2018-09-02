@@ -56,13 +56,13 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         }
         switch (charactersResultList.get(position).getGender()) {
             case 1:
-                holder.gender.setText("Male");
+                holder.gender.setText(R.string.male);
                 break;
             case 2:
-                holder.gender.setText("Female");
+                holder.gender.setText(R.string.female);
                 break;
             default:
-                holder.gender.setText("Other");
+                holder.gender.setText(R.string.other);
                 break;
         }
         holder.realName.setText(charactersResultList.get(position).getRealName());
