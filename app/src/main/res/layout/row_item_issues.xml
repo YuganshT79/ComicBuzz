@@ -1,120 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/card_view_layout_issues"
+    android:layout_height="368dp"
+    android:layout_margin="6dp"
     android:orientation="vertical"
-    android:layout_height="wrap_content">
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp">
 
-    <android.support.v7.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:id="@+id/card_view_layout_issues"
-        android:orientation="vertical"
-        app:cardElevation="3dp"
-        app:cardCornerRadius="3dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/iv_issue_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="240dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/issue_cover_image" />
 
-            <ImageView
-                android:id="@+id/iv_issue_image"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/issue_cover_image" />
+
+        <TextView
+            android:id="@+id/tv_issue_number"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:background="@drawable/issue_bg"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            tools:text="#5" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/iv_issue_image"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_issue_name"
-                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
+                android:layout_margin="4dp"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="1"
+                android:padding="4dp"
+                android:textColor="@android:color/black"
                 android:textSize="25sp"
-                tools:text="Issue Name"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:textSize="15sp"
-                    android:ellipsize="end"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:text="@string/published_on"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:layout_weight="1"
-                    android:textSize="15sp"
-                    android:gravity="end"
-                    android:textStyle="bold"
-                    android:text="@string/issue_number"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:layout_weight="1"
-                    android:id="@+id/tv_published_on_date"
-                    android:ellipsize="end"
-                    tools:text=""/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:id="@+id/tv_issue_number"
-                    android:ellipsize="end"
-                    android:gravity="end"
-                    android:layout_weight="1"
-                    tools:text=""/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:textSize="15sp"
-                android:ellipsize="end"
                 android:textStyle="bold"
-                android:text="@string/volume"/>
+                tools:text="Issue Name" />
 
             <TextView
+                android:id="@+id/tv_published_on"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:id="@+id/tv_contained_in_volume_name"
+                android:layout_below="@id/tv_issue_name"
+                android:layout_margin="8dp"
+                android:text="@string/published_on"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_volume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_published_on"
+                android:layout_margin="8dp"
+                android:text="@string/volume"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_published_on_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_issue_name"
+                android:layout_margin="8dp"
+                android:layout_toEndOf="@id/tv_published_on"
                 android:ellipsize="end"
-                tools:text=""/>
+                android:text="10 Oct, 2018"
+                android:textSize="16sp" />
 
-       </LinearLayout>
+            <TextView
+                android:id="@+id/tv_contained_in_volume_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_published_on_date"
+                android:layout_margin="8dp"
+                android:layout_toEndOf="@id/tv_volume"
+                android:ellipsize="end"
+                android:text="Elixer"
+                android:textSize="16sp" />
 
-    </android.support.v7.widget.CardView>
 
-</LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
